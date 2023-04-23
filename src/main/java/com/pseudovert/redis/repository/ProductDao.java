@@ -1,6 +1,7 @@
 package com.pseudovert.redis.repository;
 
 import com.pseudovert.redis.entity.Product;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
+@Slf4j
 public class ProductDao {
     @Autowired
     private RedisTemplate redisTemplate;
@@ -24,6 +26,7 @@ public class ProductDao {
     }
 
     public Product findProductById(int id){
+        log.info("Fetching data from DB, id: {}", id);
         return (Product) redisTemplate.opsForHash().get(HASH_KEY, id);
     }
 
